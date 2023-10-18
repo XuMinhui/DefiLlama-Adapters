@@ -16,7 +16,7 @@ coreAssets = JSON.parse(JSON.stringify(coreAssets))
 // carbon: https://api-insights.carbon.network/info/denom_gecko_map
 // orbit brige: https://bridge.orbitchain.io/open/v1/api/monitor/rawTokenList
 
-const ibcChains = ['ibc', 'terra', 'terra2', 'crescent', 'osmosis', 'kujira', 'stargaze', 'juno', 'injective', 'cosmos', 'comdex', 'umee', 'orai', 'persistence', 'fxcore', 'neutron', 'quasar', 'chihuahua', 'sei', 'archway', 'migaloo', 'secret', 'aura']
+const ibcChains = ['ibc', 'terra', 'terra2', 'crescent', 'osmosis', 'kujira', 'stargaze', 'juno', 'injective', 'cosmos', 'comdex', 'umee', 'orai', 'persistence', 'fxcore', 'neutron', 'quasar', 'chihuahua', 'sei', 'archway', 'migaloo', 'secret', 'aura', 'xpla']
 const caseSensitiveChains = [...ibcChains, 'solana', 'tezos', 'ton', 'algorand', 'aptos', 'near', 'bitcoin', 'waves', 'tron', 'litecoin', 'polkadot', 'ripple', 'elrond', 'cardano', 'stacks', 'sui', 'ergo', 'mvc',]
 
 const distressedAssts = new Set(Object.values({
@@ -36,7 +36,16 @@ const transformTokens = {
   //   [ADDRESSES.cronos.TUSD]: ADDRESSES.ethereum.TUSD,
   // },
   ronin: {
-    [ADDRESSES.null]: 'ronin:'+ADDRESSES.ronin.WRON,
+    [ADDRESSES.null]: 'ronin:' + ADDRESSES.ronin.WRON,
+  },
+
+  bfc: {
+    "0x6c9944674C1D2cF6c4c4999FC7290Ba105dcd70e": ADDRESSES.null,
+    "0xB800EaF843F962DFe5e145A8c9D07A3e70b11d7F": 'bsc:' + ADDRESSES.null,
+    "0x640952E7984f2ECedeAd8Fd97aA618Ab1210A21C": ADDRESSES.ethereum.USDC,
+    "0x21ad243b81eff53482F6F6E7C76539f2CfC0B734": 'polygon:' + ADDRESSES.null,
+    "0x3eA8654d5755e673599473ab37d92788B5bA12aE": ADDRESSES.ethereum.USDT,
+    "0xcDB9579Db96EB5C8298dF889D915D0FF668AfF2a": ADDRESSES.ethereum.DAI,
   }
 }
 const ibcMappings = {
@@ -49,6 +58,10 @@ const fixBalancesTokens = {
   // Sample Code
   ozone: {
     // '0x83048f0bf34feed8ced419455a4320a735a92e9d': { coingeckoId: "ozonechain", decimals: 18 }, // was mapped to wrong chain
+  },
+  radixdlt: {
+    [ADDRESSES.radixdlt.XRD]: { coingeckoId: 'radix', decimals: 0},
+    [ADDRESSES.radixdlt.WETH]: { coingeckoId: 'ethereum', decimals: 0},
   },
   mvc: {
     [ADDRESSES.mvc.SPACE]: { coingeckoId: "microvisionchain", decimals: 8 },
@@ -76,6 +89,7 @@ const fixBalancesTokens = {
   scroll: {
     '0x5300000000000000000000000000000000000004': { coingeckoId: 'ethereum', decimals: 18 },
     [ADDRESSES.null]: { coingeckoId: 'ethereum', decimals: 18 },
+    '0x06eFdBFf2a14a7c8E15944D1F4A48F9F95F663A4': { coingeckoId: 'usd-coin', decimals: 6 }
   },
   nos: {
     [ADDRESSES.nos.BTC]: { coingeckoId: 'bitcoin', decimals: 18 },
@@ -92,9 +106,12 @@ const fixBalancesTokens = {
     [ADDRESSES.beam.USDC]: { coingeckoId: 'usd-coin', decimals: 6 },
     [ADDRESSES.beam.USDT]: { coingeckoId: 'tether', decimals: 18 },
   },
+  bfc: {
+    [ADDRESSES.null]: { coingeckoId: 'bifrost', decimals: 18 },
+  },
   renec: {
-    [ADDRESSES.renec.RENEC] : { coingeckoId: "renec", decimals: 9 },
-    [ADDRESSES.renec.REUSD] :  {coingeckoId: "tether", decimals: 9 }, // reUSD pegged USDT || bridge: https://remitano.com/swap/vn/usdt_reusd
+    [ADDRESSES.renec.RENEC]: { coingeckoId: "renec", decimals: 9 },
+    [ADDRESSES.renec.REUSD]: { coingeckoId: "tether", decimals: 9 }, // reUSD pegged USDT || bridge: https://remitano.com/swap/vn/usdt_reusd
   }
 }
 
